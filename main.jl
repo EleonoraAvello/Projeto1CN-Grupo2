@@ -46,3 +46,60 @@ function graficos_novembro()
     png(p, "graficos_novembro")
 end
 graficos_novembro()
+
+
+"""
+Método de Euler 
+"""
+function metodo_de_euler(x0, y0 :: Real, f, xN, N)
+    δ = (xN - x0) / N
+    y = zeros(N + 1)
+    y[1] = y0
+    x = range(x0, xN, length = N + 1)
+    for k = 1:N
+        y[k+1] = y[k] + δ * f(t[k], y[k])
+    end
+    return x, y
+end 
+
+"""
+Método de Runge Kutta
+"""
+function metodo_runge_kutta(x0, y0 :: Vector, f, xN, N)
+    h = (xN - x0) / N
+    m = length(y0)
+    y = zeros(m, N + 1)
+    y[:,1] = y0
+    x = range(x0, xN, length=N+1)
+    for k = 1:N
+        k1 = f(t[k], y[:,k])
+        k2 = f(t[k] + 0.5, y[:,k] + h * k1/ 2)
+        k3 = f(t[k] + 0.5, y[:,k] + h * k2/ 2)
+        k4 = f(t[k+1], y[:,k] + h * k3)
+        y[:,k+1] = y[:,k] + h * (k1 + 2k2 + 2k3 + k4) / 6
+    end
+    return x, y
+end
+
+"""
+Modelo SIR (arrumar)
+"""
+T = 1_752_000
+β = 0.5
+γ = 0.1
+
+#y = [S, I, R]
+F(x, y) = [-β / T * y[2] * y[1];
+            β / T * y[2] * y[1] - γ * y[2];
+            γ * y[2]]
+
+x0 = 0.0
+y0 = [T - 100; 100.0; 0.0]
+xf = 30.0 #t final 
+N = 100
+
+x, y = runge_kutta(x0, y0, F, xf, N)
+
+plot(x, y[1,:], c=:blue, lab="S", legend =:right)
+plot!(x, y[2,:], c=:green, lab="I")
+plot!(x, y[3,:], c=:red, lab="R")
