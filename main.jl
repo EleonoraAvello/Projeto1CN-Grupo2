@@ -52,12 +52,12 @@ graficos_novembro()
 Método de Euler 
 """
 function metodo_de_euler(x0, y0 :: Real, f, xN, N)
-    δ = (xN - x0) / N
+    h = (xN - x0) / N
     y = zeros(N + 1)
     y[1] = y0
     x = range(x0, xN, length = N + 1)
     for k = 1:N
-        y[k+1] = y[k] + δ * f(t[k], y[k])
+        y[k+1] = y[k] + h * f(t[k], y[k])
     end
     return x, y
 end 
