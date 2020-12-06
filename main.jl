@@ -51,13 +51,14 @@ graficos_novembro()
 """
 Método de Euler 
 """
-function metodo_de_euler(x0, y0 :: Real, f, xN, N)
+function metodo_de_euler(x0, y0 :: Vector, f, xN, N)
     h = (xN - x0) / N
-    y = zeros(N + 1)
-    y[1] = y0
+    m = length(y0)
+    y = zeros(m, N + 1)
+    y[:,1] = y0
     x = range(x0, xN, length = N + 1)
     for k = 1:N
-        y[k+1] = y[k] + h * f(t[k], y[k])
+        y[:,k+1] = y[:,k] + h * f(x[k], y[:,k])
     end
     return x, y
 end 
@@ -72,10 +73,10 @@ function metodo_runge_kutta(x0, y0 :: Vector, f, xN, N)
     y[:,1] = y0
     x = range(x0, xN, length=N+1)
     for k = 1:N
-        k1 = f(t[k], y[:,k])
-        k2 = f(t[k] + 0.5, y[:,k] + h * k1/ 2)
-        k3 = f(t[k] + 0.5, y[:,k] + h * k2/ 2)
-        k4 = f(t[k+1], y[:,k] + h * k3)
+        k1 = f(x[k], y[:,k])
+        k2 = f(x[k] + 0.5, y[:,k] + h * k1/ 2)
+        k3 = f(x[k] + 0.5, y[:,k] + h * k2/ 2)
+        k4 = f(x[k+1], y[:,k] + h * k3)
         y[:,k+1] = y[:,k] + h * (k1 + 2k2 + 2k3 + k4) / 6
     end
     return x, y
