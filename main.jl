@@ -28,25 +28,27 @@ graficos_julho()
 """
 #preenchendo os vetores com as informações de setembro
 function graficos_novembro()
-    dias_novembro = 1:1:30
-    novos_casos_novembro = [0, 0, 896, 331, 407, 436, 473, 0, 536, 477, 736, 703, 749, 715, 0, 1508, 879, 914, 1381, 0, 1380, 984, 1339, 1101, 1597, 1604, 1571, 1521, 970, 1254]
-    novos_obitos_novembro = [0, 0, 10, 6, 8, 8, 9, 0, 7, 5, 5, 10, 5, 6, 0, 10, 13, 11, 9, 0, 8, 7, 10, 11, 11, 18, 16, 17, 18]
-    confirmados_novembro = [0, 0, 53785, 54116, 54523, 54959, 55432, 0, 55968, 56445, 57181, 57884, 58663, 59348, 0, 60856, 61735, 62649, 64030, 0, 66819, 67803, 69142, 70243, 71840, 73444, 45015, 76536, 77506]
-    ativos_novembro = [0, 0, 3965, 3935, 4012, 4131, 4236, 0, 4395, 4431, 4763, 5004, 5306, 5705, 0, 6849, 7449, 7714, 8415, 0, 9637, 10224, 11323, 11500, 12139, 12784, 12973, 13320, 13582]
-    recuperados_novembro = [0, 0, 48330, 48685, 49007, 49316, 49675, 49675, 0, 0, 50481, 50880, 51331, 51774, 52084, 52438, 0, 52704, 53342, 54013, 0, 55561, 55951, 56272, 57094, 58041, 58982, 60348, 61505, 62195]
-    obitos_novembro = [0, 0, 1490, 1496, 1504, 1512, 1521, 0, 1528, 1533, 1538, 1548, 1553, 1559, 0, 1569, 1582, 1593, 1602, 0, 1621, 1628, 1638, 1649, 1660, 1678, 1694, 1771, 1729]
+    dias_novembro = [3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+    dias_novembro2 = [3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+    novos_casos_novembro = [896, 331, 407, 436, 473, 536, 477, 736, 703, 749, 715, 1508, 879, 914, 1381, 1380, 984, 1339, 1101, 1597, 1604, 1571, 1521, 970, 1254]
+    novos_obitos_novembro = [10, 6, 8, 8, 9, 7, 5, 5, 10, 5, 6, 10, 13, 11, 9, 8, 7, 10, 11, 11, 18, 16, 17, 18, 16]
+    confirmados_novembro = [53785, 54116, 54523, 54959, 55432, 55968, 56445, 57181, 57884, 58663, 59348, 60856, 61735, 62649, 64030, 66819, 67803, 69142, 70243, 71840, 73444, 75015, 76536, 77506, 78760]
+    ativos_novembro = [3965, 3935, 4012, 4131, 4236, 4395, 4431, 4763, 5004, 5306, 5705, 6849, 7449, 7714, 8415, 9637, 10224, 11323, 11500, 12139, 12784, 12973, 13320, 13582, 13829]
+    obitos_novembro = [1490, 1496, 1504, 1512, 1521, 1528, 1533, 1538, 1548, 1553, 1559, 1569, 1582, 1593, 1602, 1621, 1628, 1638, 1649, 1660, 1678, 1694, 1771, 1729, 1745]
+    recuperados_novembro = [48330, 48685, 49007, 49316, 49675, 50481, 50880, 51331, 51774, 52084, 52438, 52704, 53342, 54013, 55561, 55951, 56272, 57094, 58041, 58982, 60348, 61505, 62195, 63186]
+    
     #plotando os gráficos numa grade 2x2
     layout = grid(2, 2)
     p = plot(layout=layout, leg=false)
     scatter!(p[1], dias_novembro, confirmados_novembro, title = "Casos confirmados em novembro", xlabel = "dias de novembro", ylabel = "confirmados")
     scatter!(p[2], dias_novembro, obitos_novembro, title = "Óbitos em novembro", xlabel = "dias de novembro", ylabel = "óbitos")
-    scatter!(p[3], dias_novembro, recuperados_novembro, title = "Recuperados em novembro", xlabel = "dias de novembro", ylabel = "recuperados")
+    scatter!(p[3], dias_novembro2, recuperados_novembro, title = "Recuperados em novembro", xlabel = "dias de novembro", ylabel = "recuperados")
     scatter!(p[4], dias_novembro, novos_casos_novembro, title = "Novos casos em novembro", xlabel = "dias de novembro", ylabel = "novos casos")
     #salvando a imagem com os gráficos 
     png(p, "graficos_novembro")
 end
 graficos_novembro()
-
 
 """
 Método de Euler 
