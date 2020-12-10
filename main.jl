@@ -16,16 +16,17 @@ function graficos_julho()
     dias_julho2 = [2, 7, 11, 12, 13, 16, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31]
     recuperados_julho = [2909, 4145, 5883, 5735, 5784, 6717, 7134, 7343, 7710, 7915, 8275, 8341, 8407, 8533, 10334, 10944, 11533, 12413, 12991]
 
-    f(x) = -0.2321 * x^3 + 12.6913 * x^2 + 275.1272 * x + 5329.4509
-    F(x) = -0.0067 * x^3 + 0.4968 * x^2 + 3.4556 * x + 156.5620
-    g(x) = 0.7263 * x^3 - 30.2455 * x^2 + 607.0170 * x + 1616.3719
-    h(x) = ℯ^(5.3849 + 0.0143 * x)
+    f(x) = -0.2321 * x^3 + 12.6913 * x^2 + 275.1272 * x + 5329.4509 #Aproximação de função - Casos confirmados até julho 
+    F(x) = -0.0067 * x^3 + 0.4968 * x^2 + 3.4556 * x + 156.5620 #Aproximação de função - Óbitos até julho 
+    g(x) = 0.7263 * x^3 - 30.2455 * x^2 + 607.0170 * x + 1616.3719 #Aproximação de função - Recuperados até julho 
+    h(x) = ℯ^(5.3849 + 0.0143 * x) #Aproximação de função - Novos casos em julho 
     w = range(0, 31, length=100)
 
     #plotando os gráficos numa grade 2x2
     layout = grid(2, 2)
     p = plot(layout=layout, leg=false)
 
+    #Plotando as funções 
     plot!(p[1], f, w, c=:black, lw=2)
     plot!(p[2], F, w, c=:black, lw=2)
     plot!(p[3], g, w, c=:black, lw=2)
@@ -56,16 +57,17 @@ function graficos_novembro()
     dias_novembro2 = [3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
     recuperados_novembro = [48330, 48685, 49007, 49316, 49675, 50481, 50880, 51331, 51774, 52084, 52438, 52704, 53342, 54013, 55561, 55951, 56272, 57094, 58041, 58982, 60348, 61505, 62195, 63186]
     
-    f(x) = -0.2482 * x^3 + 40.2731 * x^2  - 149.7415 * x + 54212.1593
-    F(x) = 0.0123 * x^3 - 0.3454 * x^2 + 9.0592 * x + 1466.1374
-    g(x) = 0.7414 * x^3 - 19.8918 * x^2 + 477.4610 * x + 47048.1630
-    h(x) = -0.2966 * x^3 + 14.1247 * x^2 - 148.0600 * x + 934.1163
+    f(x) = -0.2482 * x^3 + 40.2731 * x^2  - 149.7415 * x + 54212.1593 #Aproximação de função - Casos confirmados até novembro 
+    F(x) = 0.0123 * x^3 - 0.3454 * x^2 + 9.0592 * x + 1466.1374 #Aproximação de função - Óbitos até novembro 
+    g(x) = 0.7414 * x^3 - 19.8918 * x^2 + 477.4610 * x + 47048.1630 #Aproximação de função - Recuperados até novembro 
+    h(x) = -0.2966 * x^3 + 14.1247 * x^2 - 148.0600 * x + 934.1163 #Aproximação de função - Novos casos em novembro
     x = range(0, 30, length=100)
 
     #plotando os gráficos numa grade 2x2
     layout = grid(2, 2)
     p = plot(layout=layout, leg=false)
-    
+
+    #Plotando as funções 
     plot!(p[1], f, x, c=:black, lw=2)
     plot!(p[2], F, x, c=:black, lw=2)
     plot!(p[3], g, x, c=:black, lw=2)
