@@ -1,4 +1,6 @@
 using Plots
+gr(size=(1.5 * 600, 1.5 * 400))
+
 """
 1° Montar gráficos com todas as informações do mês de julho
 """
@@ -18,19 +20,21 @@ function graficos_julho()
     F(x) = -0.0067 * x^3 + 0.4968 * x^2 + 3.4556 * x + 156.5620
     g(x) = 0.7263 * x^3 - 30.2455 * x^2 + 607.0170 * x + 1616.3719
     h(x) = ℯ^(5.3849 + 0.0143 * x)
+    w = range(0, 31, length=100)
 
     #plotando os gráficos numa grade 2x2
     layout = grid(2, 2)
     p = plot(layout=layout, leg=false)
-    scatter!(p[1], dias_julho, confirmados_julho, title = "Casos confirmados em julho", xlabel = "dias de julho", ylabel = "confirmados")
-    scatter!(p[2], dias_julho, obitos_julho, title = "Óbitos em julho", xlabel = "dias de julho", ylabel = "óbitos")
-    scatter!(p[3], dias_julho2, recuperados_julho, title = "Recuperados em julho", xlabel = "dias de julho", ylabel = "recuperados")
-    scatter!(p[4], dias_julho, novos_casos_julho, title = "Novos casos em julho", xlabel = "dias de julho", ylabel = "novos casos")
 
-    plot!(p[1], f, 0, length(dias_julho), c=:black)
-    plot!(p[2], F, 0, length(dias_julho), c=:black)
-    plot!(p[3], g, 0, length(dias_julho2), c=:black)
-    plot!(p[4], h, 0, length(dias_julho), c=:black)
+    plot!(p[1], f, w, c=:black, lw=2)
+    plot!(p[2], F, w, c=:black, lw=2)
+    plot!(p[3], g, w, c=:black, lw=2)
+    plot!(p[4], h, w, c=:black, lw=2)
+
+    scatter!(p[1], dias_julho, confirmados_julho, title = "Casos confirmados em julho", xlabel = "dias de julho", ylabel = "confirmados", c=:orange)
+    scatter!(p[2], dias_julho, obitos_julho, title = "Óbitos em julho", xlabel = "dias de julho", ylabel = "óbitos", c=:orange)
+    scatter!(p[3], dias_julho2, recuperados_julho, title = "Recuperados em julho", xlabel = "dias de julho", ylabel = "recuperados", c=:orange)
+    scatter!(p[4], dias_julho, novos_casos_julho, title = "Novos casos em julho", xlabel = "dias de julho", ylabel = "novos casos", c=:orange)
 
     #salvando a imagem com os gráficos 
     png(p, "graficos_julho")
@@ -56,19 +60,22 @@ function graficos_novembro()
     F(x) = 0.0123 * x^3 - 0.3454 * x^2 + 9.0592 * x + 1466.1374
     g(x) = 0.7414 * x^3 - 19.8918 * x^2 + 477.4610 * x + 47048.1630
     h(x) = -0.2966 * x^3 + 14.1247 * x^2 - 148.0600 * x + 934.1163
+    x = range(0, 30, length=100)
 
     #plotando os gráficos numa grade 2x2
     layout = grid(2, 2)
     p = plot(layout=layout, leg=false)
-    scatter!(p[1], dias_novembro, confirmados_novembro, title = "Casos confirmados em novembro", xlabel = "dias de novembro", ylabel = "confirmados")
-    scatter!(p[2], dias_novembro, obitos_novembro, title = "Óbitos em novembro", xlabel = "dias de novembro", ylabel = "óbitos")
-    scatter!(p[3], dias_novembro2, recuperados_novembro, title = "Recuperados em novembro", xlabel = "dias de novembro", ylabel = "recuperados")
-    scatter!(p[4], dias_novembro, novos_casos_novembro, title = "Novos casos em novembro", xlabel = "dias de novembro", ylabel = "novos casos")
+    
+    plot!(p[1], f, x, c=:black, lw=2)
+    plot!(p[2], F, x, c=:black, lw=2)
+    plot!(p[3], g, x, c=:black, lw=2)
+    plot!(p[4], h, x, c=:black, lw=2)
 
-    plot!(p[1], f, 0, length(dias_novembro), c=:black)
-    plot!(p[2], F, 0, length(dias_novembro), c=:black)
-    plot!(p[3], g, 0, length(dias_novembro2), c=:black)
-    plot!(p[4], h, 0, length(dias_novembro), c=:black)
+    scatter!(p[1], dias_novembro, confirmados_novembro, title = "Casos confirmados em novembro", xlabel = "dias de novembro", ylabel = "confirmados", c=:cyan)
+    scatter!(p[2], dias_novembro, obitos_novembro, title = "Óbitos em novembro", xlabel = "dias de novembro", ylabel = "óbitos", c=:cyan)
+    scatter!(p[3], dias_novembro2, recuperados_novembro, title = "Recuperados em novembro", xlabel = "dias de novembro", ylabel = "recuperados", c=:cyan)
+    scatter!(p[4], dias_novembro, novos_casos_novembro, title = "Novos casos em novembro", xlabel = "dias de novembro", ylabel = "novos casos", c=:cyan)
+
 
     #salvando a imagem com os gráficos 
     png(p, "graficos_novembro")
@@ -163,4 +170,6 @@ x, y = metodo_runge_kutta(x0, y0, F, xf, N)
 plot(x, y[1,:], c=:blue, lab="S", legend =:right)
 plot!(x, y[2,:], c=:green, lab="I")
 plot!(x, y[3,:], c=:red, lab="R")
+
+
 
