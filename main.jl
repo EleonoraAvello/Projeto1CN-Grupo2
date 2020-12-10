@@ -31,9 +31,9 @@ function graficos_julho()
     plot!(p[3], g, w, c=:black, lw=2)
     plot!(p[4], h, w, c=:black, lw=2)
 
-    scatter!(p[1], dias_julho, confirmados_julho, title = "Casos confirmados em julho", xlabel = "dias de julho", ylabel = "confirmados", c=:orange)
-    scatter!(p[2], dias_julho, obitos_julho, title = "Óbitos em julho", xlabel = "dias de julho", ylabel = "óbitos", c=:orange)
-    scatter!(p[3], dias_julho2, recuperados_julho, title = "Recuperados em julho", xlabel = "dias de julho", ylabel = "recuperados", c=:orange)
+    scatter!(p[1], dias_julho, confirmados_julho, title = "Casos confirmados até julho", xlabel = "dias de julho", ylabel = "confirmados", c=:orange)
+    scatter!(p[2], dias_julho, obitos_julho, title = "Óbitos até julho", xlabel = "dias de julho", ylabel = "óbitos", c=:orange)
+    scatter!(p[3], dias_julho2, recuperados_julho, title = "Recuperados até julho", xlabel = "dias de julho", ylabel = "recuperados", c=:orange)
     scatter!(p[4], dias_julho, novos_casos_julho, title = "Novos casos em julho", xlabel = "dias de julho", ylabel = "novos casos", c=:orange)
 
     #salvando a imagem com os gráficos 
@@ -53,7 +53,7 @@ function graficos_novembro()
     ativos_novembro = [3965, 3935, 4012, 4131, 4236, 4395, 4431, 4763, 5004, 5306, 5705, 6849, 7449, 7714, 8415, 9637, 10224, 11323, 11500, 12139, 12784, 12973, 13320, 13582, 13829]
     obitos_novembro = [1490, 1496, 1504, 1512, 1521, 1528, 1533, 1538, 1548, 1553, 1559, 1569, 1582, 1593, 1602, 1621, 1628, 1638, 1649, 1660, 1678, 1694, 1771, 1729, 1745]
     
-    dias_novembro2 = [3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+    dias_novembro2 = [3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
     recuperados_novembro = [48330, 48685, 49007, 49316, 49675, 50481, 50880, 51331, 51774, 52084, 52438, 52704, 53342, 54013, 55561, 55951, 56272, 57094, 58041, 58982, 60348, 61505, 62195, 63186]
     
     f(x) = -0.2482 * x^3 + 40.2731 * x^2  - 149.7415 * x + 54212.1593
@@ -71,9 +71,9 @@ function graficos_novembro()
     plot!(p[3], g, x, c=:black, lw=2)
     plot!(p[4], h, x, c=:black, lw=2)
 
-    scatter!(p[1], dias_novembro, confirmados_novembro, title = "Casos confirmados em novembro", xlabel = "dias de novembro", ylabel = "confirmados", c=:cyan)
-    scatter!(p[2], dias_novembro, obitos_novembro, title = "Óbitos em novembro", xlabel = "dias de novembro", ylabel = "óbitos", c=:cyan)
-    scatter!(p[3], dias_novembro2, recuperados_novembro, title = "Recuperados em novembro", xlabel = "dias de novembro", ylabel = "recuperados", c=:cyan)
+    scatter!(p[1], dias_novembro, confirmados_novembro, title = "Casos confirmados até novembro", xlabel = "dias de novembro", ylabel = "confirmados", c=:cyan)
+    scatter!(p[2], dias_novembro, obitos_novembro, title = "Óbitos até novembro", xlabel = "dias de novembro", ylabel = "óbitos", c=:cyan)
+    scatter!(p[3], dias_novembro2, recuperados_novembro, title = "Recuperados até novembro", xlabel = "dias de novembro", ylabel = "recuperados", c=:cyan)
     scatter!(p[4], dias_novembro, novos_casos_novembro, title = "Novos casos em novembro", xlabel = "dias de novembro", ylabel = "novos casos", c=:cyan)
 
 
@@ -170,6 +170,3 @@ x, y = metodo_runge_kutta(x0, y0, F, xf, N)
 plot(x, y[1,:], c=:blue, lab="S", legend =:right)
 plot!(x, y[2,:], c=:green, lab="I")
 plot!(x, y[3,:], c=:red, lab="R")
-
-
-
