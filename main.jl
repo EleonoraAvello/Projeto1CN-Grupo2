@@ -83,45 +83,7 @@ function graficos_novembro()
     png(p, "graficos_novembro")
 end
 graficos_novembro()
-"""
-MODELO SIR DEFINITIVO
-"""
-function sir(r0, i, metodo)
-    # r0 é o número reprodutivo basal
-    # i é o tempo de infecção. Ex.: i=14
-    if metodo != :euler && metodo != :runge
-        error("insira ':runge' ou ':euler'")
-    end
-    T = 1_752_000 #Total de habitantes na cidade de Curitiba 
-    γ = 1/i #Taxa de recuperação
-    β = r0*γ #Taxa de crescimento 
-    
-    # Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
-    # Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
-    # A função é composta pelas equações que temos através do Modelo SIR
-    f(x, y) = [-β / T * y[2] * y[1];
-                β / T * y[2] * y[1] - γ * y[2];
-                γ * y[2]]
 
-    x0 = 0.0 #Onde se inicia, dado pelo tempo
-    y0 = [T - 100; 100.0; 0.0] #Onde se inicia, número dos casos 
-    xf = 30.0 #Onde termina, ou seja, o tempo final
-    N = 100 #Quantos passos a função dará 
-
-    if metodo == :euler
-        x, y = metodo_de_euler(x0, y0, f, xf, N)
-    else
-        x, y = metodo_runge_kutta(x0, y0, F, xf, N)
-    end
-
-    #Plotando os gráficos de Suscetíveis, Infectados e Recuperados
-    p = plot(x, y[1,:], c=:blue, lab="S", legend =:right)
-    plot!(x, y[2,:], c=:green, lab="I")
-    plot!(x, y[3,:], c=:red, lab="R")
-
-    # Salvando os gráficos
-    png(p, "gráficos_modelo_sir")
-end
 """
 Método de Euler 
 """
@@ -137,31 +99,6 @@ function metodo_de_euler(x0, y0 :: Vector, f, xN, N)
     end
     return x, y
 end 
-"""
-Modelo SIR (arrumar)
-"""
-T = 1_752_000 #Total de habitantes na cidade de Curitiba 
-β = 0.5 #Taxa de crescimento 
-γ = 1/14 #Taxa de recuperação
-
-# Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
-# Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
-# A função é composta pelas equações que temos através do Modelo SIR
-f(x, y) = [-β / T * y[2] * y[1];
-            β / T * y[2] * y[1] - γ * y[2];
-            γ * y[2]]
-
-x0 = 0.0 #Onde se inicia, dado pelo tempo
-y0 = [T - 100; 100.0; 0.0] #Onde se inicia, número dos casos 
-xf = 30.0 #Onde termina, ou seja, o tempo final
-N = 100 #Quantos passos a função dará 
-
-x, y = metodo_de_euler(x0, y0, f, xf, N)
-
-#Plotando os gráficos de Suscetíveis, Infectados e Recuperados
-plot(x, y[1,:], c=:blue, lab="S", legend =:right)
-plot!(x, y[2,:], c=:green, lab="I")
-plot!(x, y[3,:], c=:red, lab="R")
 
 """
 Método de Runge Kutta
@@ -183,29 +120,160 @@ function metodo_runge_kutta(x0, y0 :: Vector, f, xN, N)
     return x, y
 end
 
+
 """
-Modelo SIR (arrumar)
+MODELO SIR DEFINITIVO - JULHO 
 """
+function sir_julho(i, metodo)
+    # i é o tempo de infecção. Ex.: i=14
+    if metodo != :euler && metodo != :runge
+        error("insira ':runge' ou ':euler'")
+    end
+    T = 1_752_000 #Total de habitantes na cidade de Curitiba 
+    γ = 1/i #Taxa de recuperação
+    β = 1.65 #Taxa de crescimento 
+    
+    # Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
+    # Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
+    # A função é composta pelas equações que temos através do Modelo SIR
+    f(x, y) = [-β / T * y[2] * y[1];
+                β / T * y[2] * y[1] - γ * y[2];
+                γ * y[2]]
 
-T = 1_752_000 #Total de habitantes na cidade de Curitiba 
-β = 1.2 #Taxa de crescimento 
-γ = 1/14 #Taxa de recuperação
+    x0 = 0.0 #Onde se inicia, dado pelo tempo
+    y0 = [T - 2881.0; 2881.0; 0.0] #Onde se inicia, número dos casos 
+    xf = 30.0 #Onde termina, ou seja, o tempo final
+    N = 1000 #Quantos passos a função dará 
 
-# Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
-# Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
-# A função é composta pelas equações que temos através do Modelo SIR
-F(x, y) = [-β / T * y[2] * y[1];
-            β / T * y[2] * y[1] - γ * y[2];
-            γ * y[2]]
+    if metodo == :euler
+        x, y = metodo_de_euler(x0, y0, f, xf, N)
+    else
+        x, y = metodo_runge_kutta(x0, y0, f, xf, N)
+    end
 
-x0 = 0.0 #Onde se inicia, dado pelo tempo
-y0 = [T - 3965.0; 3965.0; 0.0] #Onde se inicia, número dos casos 
-xf = 30.0 #Onde termina, ou seja, o tempo final
-N = 1000#Quantos passos a função dará 
+    #Plotando os gráficos de Suscetíveis, Infectados e Recuperados
+    p = plot(x, y[1,:], c=:blue, lab="S", legend =:right, title= "Modelo SIR - Julho")
+    plot!(x, y[2,:], c=:green, lab="I")
+    plot!(x, y[3,:], c=:red, lab="R")
 
-x, y = metodo_runge_kutta(x0, y0, F, xf, N)
+    # Salvando os gráficos
+    png(p, "gráficos_modelo_sir_julho")
+end
 
-#Plotando os gráficos de Suscetíveis, Infectados e Recuperados
-plot(x, y[1,:], c=:blue, lab="S", legend =:right)
-plot!(x, y[2,:], c=:green, lab="I")
-plot!(x, y[3,:], c=:red, lab="R")
+"""
+MODELO SIR DEFINITIVO - NOVEMBRO 
+"""
+function sir_novembro(i, metodo)
+    # i é o tempo de infecção. Ex.: i=14
+    if metodo != :euler && metodo != :runge
+        error("insira ':runge' ou ':euler'")
+    end
+    T = 1_752_000 #Total de habitantes na cidade de Curitiba 
+    γ = 1/i #Taxa de recuperação
+    β = 1.20 #Taxa de crescimento 
+    
+    # Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
+    # Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
+    # A função é composta pelas equações que temos através do Modelo SIR
+    f(x, y) = [-β / T * y[2] * y[1];
+                β / T * y[2] * y[1] - γ * y[2];
+                γ * y[2]]
+
+    x0 = 0.0 #Onde se inicia, dado pelo tempo
+    y0 = [T - 3965.0; 3965.0; 0.0] #Onde se inicia, número dos casos 
+    xf = 30.0 #Onde termina, ou seja, o tempo final
+    N = 1000 #Quantos passos a função dará 
+
+    if metodo == :euler
+        x, y = metodo_de_euler(x0, y0, f, xf, N)
+    else
+        x, y = metodo_runge_kutta(x0, y0, f, xf, N)
+    end
+
+    #Plotando os gráficos de Suscetíveis, Infectados e Recuperados
+    p = plot(x, y[1,:], c=:blue, lab="S", legend =:right, title= "Modelo SIR Novembro")
+    plot!(x, y[2,:], c=:green, lab="I")
+    plot!(x, y[3,:], c=:red, lab="R")
+
+    # Salvando os gráficos
+    png(p, "gráficos_modelo_sir_novembro")
+end
+
+
+"""
+Exemplo de Modelo SIR com a taxa de crescimento menor igual a 0,5 para o mês de Julho 
+"""
+function sir_julho_ideal(i, metodo)
+    # i é o tempo de infecção. Ex.: i=14
+    if metodo != :euler && metodo != :runge
+        error("insira ':runge' ou ':euler'")
+    end
+    T = 1_752_000 #Total de habitantes na cidade de Curitiba 
+    γ = 1/i #Taxa de recuperação
+    β = 0.5 #Taxa de crescimento 
+    
+    # Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
+    # Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
+    # A função é composta pelas equações que temos através do Modelo SIR
+    f(x, y) = [-β / T * y[2] * y[1];
+                β / T * y[2] * y[1] - γ * y[2];
+                γ * y[2]]
+
+    x0 = 0.0 #Onde se inicia, dado pelo tempo
+    y0 = [T - 2881.0; 2881.0; 0.0] #Onde se inicia, número dos casos 
+    xf = 30.0 #Onde termina, ou seja, o tempo final
+    N = 1000 #Quantos passos a função dará 
+
+    if metodo == :euler
+        x, y = metodo_de_euler(x0, y0, f, xf, N)
+    else
+        x, y = metodo_runge_kutta(x0, y0, f, xf, N)
+    end
+
+    #Plotando os gráficos de Suscetíveis, Infectados e Recuperados
+    p = plot(x, y[1,:], c=:blue, lab="S", legend =:right, title= "Modelo SIR Julho - Ideal")
+    plot!(x, y[2,:], c=:green, lab="I")
+    plot!(x, y[3,:], c=:red, lab="R")
+
+    # Salvando os gráficos
+    png(p, "gráficos_sir_julho_ideal")
+end
+
+"""
+Exemplo de Modelo SIR com a taxa de crescimento menor igual a 0,5 para o mês de Novembro
+"""
+function sir_novembro_ideal(i, metodo)
+    # i é o tempo de infecção. Ex.: i=14
+    if metodo != :euler && metodo != :runge
+        error("insira ':runge' ou ':euler'")
+    end
+    T = 1_752_000 #Total de habitantes na cidade de Curitiba 
+    γ = 1/i #Taxa de recuperação
+    β = 0.5 #Taxa de crescimento 
+    
+    # Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
+    # Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
+    # A função é composta pelas equações que temos através do Modelo SIR
+    f(x, y) = [-β / T * y[2] * y[1];
+                β / T * y[2] * y[1] - γ * y[2];
+                γ * y[2]]
+
+    x0 = 0.0 #Onde se inicia, dado pelo tempo
+    y0 = [T - 3965.0; 3965.0; 0.0] #Onde se inicia, número dos casos 
+    xf = 30.0 #Onde termina, ou seja, o tempo final
+    N = 1000 #Quantos passos a função dará 
+
+    if metodo == :euler
+        x, y = metodo_de_euler(x0, y0, f, xf, N)
+    else
+        x, y = metodo_runge_kutta(x0, y0, f, xf, N)
+    end
+
+    #Plotando os gráficos de Suscetíveis, Infectados e Recuperados
+    p = plot(x, y[1,:], c=:blue, lab="S", legend =:right, title= "Modelo SIR Novembro - Ideal")
+    plot!(x, y[2,:], c=:green, lab="I")
+    plot!(x, y[3,:], c=:red, lab="R")
+
+    # Salvando os gráficos
+    png(p, "gráficos_sir_novembro_ideal")
+end
