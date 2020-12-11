@@ -118,8 +118,7 @@ function metodo_runge_kutta(x0, y0 :: Vector, f, xN, N)
         y[:,k+1] = y[:,k] + h * (k1 + 2k2 + 2k3 + k4) / 6
     end
     return x, y
-end
-
+    end 
 
 """
 MODELO SIR DEFINITIVO - JULHO 
@@ -198,7 +197,6 @@ function sir_novembro(i, metodo)
     # Salvando os gráficos
     png(p, "gráficos_modelo_sir_novembro")
 end
-
 
 """
 Exemplo de Modelo SIR com a taxa de crescimento menor igual a 0,5 para o mês de Julho 
