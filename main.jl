@@ -151,8 +151,8 @@ Modelo SIR (arrumar)
 """
 
 T = 1_752_000 #Total de habitantes na cidade de Curitiba 
-β = 0.5 #Taxa de crescimento 
-γ = 0.1 #Taxa de recuperação
+β = 1.2 #Taxa de crescimento 
+γ = 1/14 #Taxa de recuperação
 
 # Temos o vetor y = [S, I, R] onde S é o número de suscetíveis, I é o número de Infectados e R o número de Recuperados. 
 # Com isso, o y[1] abaixo se refere aos Suscetíveis e o y[2] se refere aos Infectados
@@ -162,9 +162,9 @@ F(x, y) = [-β / T * y[2] * y[1];
             γ * y[2]]
 
 x0 = 0.0 #Onde se inicia, dado pelo tempo
-y0 = [T - 100; 100.0; 0.0] #Onde se inicia, número dos casos 
+y0 = [T - 3965.0; 3965.0; 0.0] #Onde se inicia, número dos casos 
 xf = 30.0 #Onde termina, ou seja, o tempo final
-N = 100 #Quantos passos a função dará 
+N = 1000#Quantos passos a função dará 
 
 x, y = metodo_runge_kutta(x0, y0, F, xf, N)
 
