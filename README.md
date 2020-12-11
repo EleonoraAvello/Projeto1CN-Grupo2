@@ -12,7 +12,7 @@
 - Escreva "git pull" e aguarde
 
 # Rodando o projeto
-- Pressionar Shift + Enter para rodar o que foi programado
+- Pressione Shift + Enter para rodar o que foi programado
 
 # Subindo as alterações
 - No cmdr ou outro terminal se direcione à pasta do projeto
